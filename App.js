@@ -17,20 +17,20 @@ const App = () => {
   const [selectOptions, setSelectOptions] = useState([
     {
       id: 'opt1',
-      label: 'Option 1',
-      value: 'option1',
+      label: 'Dog',
+      value: 'dog',
       isChecked: false
     },
     {
       id: 'opt2',
-      label: 'Option 2',
-      value: 'option2',
+      label: 'Cat',
+      value: 'cat',
       isChecked: false
     },
     {
       id: 'opt3',
-      label: 'Option 3',
-      value: 'option3',
+      label: 'Budgie',
+      value: 'budgie',
       isChecked: false
     }
   ]);
@@ -43,6 +43,20 @@ const App = () => {
   useEffect(() => {
     _loadFontAsync();
   }, [_loadFontAsync]);
+
+  const onSelectItemPressedHandler = (index) => {
+    setSelectOptions(prevState => {
+      return prevState.map((selectItem, i) => {
+        if (index !== i) {
+          selectItem.isChecked = false;
+        } else {
+          selectItem.isChecked = !selectItem.isChecked;
+        }
+
+        return selectItem;
+      });
+    })
+  }
 
   if (!fontsLoaded) {
     return (
@@ -60,6 +74,7 @@ const App = () => {
         modalOptions={{
           modalHeader: 'Select Your Favorite Animal'
         }}
+        onSelectItemPressed={onSelectItemPressedHandler}
       />
     </View>
   );
